@@ -77,10 +77,6 @@ function Login() {
           backgroundColor: colors.BACKGROUND_COLOR,
           paddingHorizontal: 15,
         }}>
-        <Image
-          source={require('../../../assets/logo.png')}
-          style={{width: 150, height: 150}}
-        />
         <View style={{marginTop: 20}}>
           <Text style={{fontSize: 20, fontWeight: 'bold', color: colors.BLACK}}>
             Supplier App
