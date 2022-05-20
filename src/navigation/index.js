@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {Pressable, View} from 'react-native';
+import {Pressable, View, TouchableOpacity} from 'react-native';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -8,12 +8,14 @@ import Login from '../screens/Login/Login';
 import colors from '../constants/colors';
 import Toast from 'react-native-toast-message';
 import SelectSupplier from '../screens/SelectSupplier';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Home from '../screens/Home';
+import {fetchSuppliers} from '../actions/suppliers';
+import SearchSuppliers from '../screens/SelectSupplier/SearchSuppliers';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -75,6 +77,7 @@ const HomeTabs = ({navigation}) => {
 };
 
 function index() {
+  const dispatch = useDispatch();
   const {selectedSupplier} = useSelector(state => state.suppliers);
   return (
     <>
@@ -99,13 +102,35 @@ function index() {
             options={{headerShown: false}}
           />
           <Stack.Screen
+            name="SearchSuppliers"
+            component={SearchSuppliers}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
             name="SelectSupplier"
             component={SelectSupplier}
-            options={{
+            options={({route, navigation}) => ({
               title: 'Select Supplier',
               headerBackVisible: false,
-              headerTitleAlign: 'center',
-            }}
+              headerTitleAlign: 'left',
+              headerRight: () => (
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                    width: 90,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('SearchSuppliers')}>
+                    <Icon name="search" size={30} color={colors.BLACK} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => dispatch(fetchSuppliers())}>
+                    <Icon name="ios-refresh" size={30} color={colors.BLACK} />
+                  </TouchableOpacity>
+                </View>
+              ),
+            })}
           />
         </Stack.Navigator>
       </NavigationContainer>
