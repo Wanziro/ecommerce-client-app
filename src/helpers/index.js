@@ -9,8 +9,8 @@ import {
 export const useLoadBasicData = () => {
   const dispatch = useDispatch();
   return payload => {
+    dispatch(fetchProducts());
     dispatch(fetchCategories());
     dispatch(fetchSubCategories());
-    dispatch(fetchProducts());
   };
 };

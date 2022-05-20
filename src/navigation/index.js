@@ -34,7 +34,6 @@ const HomeTabs = ({navigation}) => {
         tabBarActiveTintColor: colors.APPBAR_HEADER_COLOR,
         tabBarInactiveTintColor: colors.GREY_BUNKER,
         headerShown: false,
-
         tabBarStyle: {
           backgroundColor: colors.WHITE,
           height: 60,
@@ -121,7 +120,7 @@ function index() {
   const {selectedSupplier} = useSelector(state => state.suppliers);
   return (
     <>
-      <StatusBar backgroundColor={colors.APPBAR_HEADER_COLOR} />
+      <StatusBar backgroundColor={colors.WHITE} />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={
@@ -150,7 +149,7 @@ function index() {
             name="SelectSupplier"
             component={SelectSupplier}
             options={({route, navigation}) => ({
-              title: 'Select Supplier',
+              title: 'Choose Cyizere Supplier',
               headerBackVisible: false,
               headerTitleAlign: 'left',
               headerRight: () => (
