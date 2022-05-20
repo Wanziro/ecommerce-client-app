@@ -13,9 +13,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import Icon from 'react-native-vector-icons/dist/Ionicons';
+import Icon2 from 'react-native-vector-icons/dist/FontAwesome';
 import Home from '../screens/Home';
 import {fetchSuppliers} from '../actions/suppliers';
 import SearchSuppliers from '../screens/SelectSupplier/SearchSuppliers';
+import Cart from '../screens/Cart';
+import Orders from '../screens/Orders';
+import Menu from '../screens/Menu';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,7 +37,7 @@ const HomeTabs = ({navigation}) => {
 
         tabBarStyle: {
           backgroundColor: colors.WHITE,
-          height: 55,
+          height: 60,
         },
       }}>
       <Tab.Screen
@@ -71,6 +75,42 @@ const HomeTabs = ({navigation}) => {
             return <Icon name="home" color={color} size={size} />;
           },
         })}
+      />
+      <Tab.Screen
+        name="Cart"
+        component={Cart}
+        options={{
+          headerTintColor: colors.APPBAR_HEADER_COLOR,
+          tabBarItemStyle: {marginBottom: 10},
+          tabBarLabelStyle: {fontSize: 14},
+          tabBarIcon: ({focused, color, size}) => {
+            return <Icon name="cart" color={color} size={size} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Orders"
+        component={Orders}
+        options={{
+          headerTintColor: colors.APPBAR_HEADER_COLOR,
+          tabBarItemStyle: {marginBottom: 10},
+          tabBarLabelStyle: {fontSize: 14},
+          tabBarIcon: ({focused, color, size}) => {
+            return <Icon2 name="shopping-bag" color={color} size={size} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Menu"
+        component={Menu}
+        options={{
+          headerTintColor: colors.APPBAR_HEADER_COLOR,
+          tabBarItemStyle: {marginBottom: 10},
+          tabBarLabelStyle: {fontSize: 14},
+          tabBarIcon: ({focused, color, size}) => {
+            return <Icon name="menu" color={color} size={size} />;
+          },
+        }}
       />
     </Tab.Navigator>
   );
