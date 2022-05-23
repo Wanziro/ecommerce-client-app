@@ -51,7 +51,7 @@ export const setLoadingCategoriesError = value => dispatch => {
 };
 export const setLoadingProductsFailure = value => dispatch => {
   dispatch({
-    type: SET_LOADING_PRODUCTS,
+    type: SET_LOADING_PRODUCTS_FAILURE,
     payload: value,
   });
 };
@@ -118,7 +118,9 @@ export const fetchProducts = () => (dispatch, getState) => {
         dispatch(setProducts(res.data.products));
         dispatch(setLoadingProductsFailure(''));
       } else {
-        dispatch(setLoadingProductsFailure(res.data.msg));
+        dispatch(
+          setLoadingProductsFailure('No products found from chosen supplier'),
+        );
       }
     })
     .catch(err => {

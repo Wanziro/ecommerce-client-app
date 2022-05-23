@@ -1,3 +1,4 @@
+import {formatCurrency} from 'react-native-format-currency';
 import {useDispatch} from 'react-redux';
 import {
   fetchCategories,
@@ -13,4 +14,10 @@ export const useLoadBasicData = () => {
     dispatch(fetchCategories());
     dispatch(fetchSubCategories());
   };
+};
+
+export const formatMoney = number => {
+  const [valueFormattedWithSymbol, valueFormattedWithoutSymbol, symbol] =
+    formatCurrency({amount: Number(number), code: 'USD'});
+  return valueFormattedWithoutSymbol;
 };

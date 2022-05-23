@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import colors from '../../constants/colors';
 import {useLoadBasicData} from '../../helpers';
 import Categories from './Categories';
+import Products from './Products';
 
 function Home() {
   const loadData = useLoadBasicData();
@@ -12,7 +13,10 @@ function Home() {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: colors.BACKGROUND_COLOR}}>
       <View style={{flex: 1}}>
-        <Categories />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Categories />
+          <Products />
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
