@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import {imageUrl} from '../../../constants/app';
 import colors from '../../../constants/colors';
 import {formatMoney} from '../../../helpers';
-function ProductItem({product}) {
+function ProductItem({product, setPreviewProduct, setShowModal}) {
   return (
     <View
       style={{
@@ -15,10 +15,14 @@ function ProductItem({product}) {
         flexDirection: 'row',
         marginVertical: 10,
       }}>
-      <View>
-        {product.image != '' ? (
+      <Pressable
+        onPress={() => {
+          setPreviewProduct(product);
+          setShowModal(true);
+        }}>
+        {product.images.length > 0 ? (
           <Image
-            source={{uri: imageUrl + product.image}}
+            source={{uri: imageUrl + product.images[0].name}}
             style={{width: 80, height: 80, borderRadius: 10}}
           />
         ) : (
@@ -27,14 +31,21 @@ function ProductItem({product}) {
             style={{width: 80, height: 80, borderRadius: 10}}
           />
         )}
-      </View>
-
+      </Pressable>
       <View style={{flex: 1, marginHorizontal: 10}}>
-        <Text style={{color: colors.BLACK}}>{product.name}</Text>
-        <Text style={{color: colors.GRAY}}>{product.description}</Text>
-        <Text style={{color: colors.APPBAR_HEADER_COLOR}} numberOfLines={3}>
-          {formatMoney(product.price)} RW
-        </Text>
+        <Pressable
+          onPress={() => {
+            setPreviewProduct(product);
+            setShowModal(true);
+          }}>
+          <Text style={{color: colors.BLACK}}>{product.name}</Text>
+          <Text style={{color: colors.GRAY}} numberOfLines={1}>
+            {product.description}
+          </Text>
+          <Text style={{color: colors.APPBAR_HEADER_COLOR}} numberOfLines={3}>
+            {formatMoney(product.price)} RW
+          </Text>
+        </Pressable>
       </View>
       <View>
         <Text style={{fontSize: 35, color: colors.BLACK}}>+</Text>

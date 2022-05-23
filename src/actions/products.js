@@ -82,7 +82,7 @@ export const fetchCategories = () => dispatch => {
       }
     })
     .catch(err => {
-      dispatch(setLoadingCategoriesError(error.message));
+      dispatch(setLoadingCategoriesError(err.message));
       console.log('error while fetching categories');
       console.log(err);
     });
@@ -101,7 +101,7 @@ export const fetchSubCategories = () => dispatch => {
       }
     })
     .catch(err => {
-      dispatch(setLoadingSubCategoriesError(error.message));
+      dispatch(setLoadingSubCategoriesError(err.message));
       console.log('error while fetching sub categories');
       console.log(err);
     });
