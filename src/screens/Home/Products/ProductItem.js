@@ -1,9 +1,15 @@
 import React from 'react';
-import {View, Text, Image, Pressable} from 'react-native';
+import {View, Text, Image, Pressable, TouchableOpacity} from 'react-native';
 import {imageUrl} from '../../../constants/app';
 import colors from '../../../constants/colors';
 import {formatMoney} from '../../../helpers';
-function ProductItem({product, setPreviewProduct, setShowModal}) {
+function ProductItem({
+  product,
+  setPreviewProduct,
+  setShowModal,
+  setQuantity,
+  handleAddToCart,
+}) {
   return (
     <View
       style={{
@@ -47,9 +53,16 @@ function ProductItem({product, setPreviewProduct, setShowModal}) {
           </Text>
         </Pressable>
       </View>
-      <View>
-        <Text style={{fontSize: 35, color: colors.BLACK}}>+</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          setQuantity(1);
+          setPreviewProduct(product);
+          handleAddToCart();
+        }}>
+        <View style={{paddingBottom: 15}}>
+          <Text style={{fontSize: 35, color: colors.BLACK}}>+</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }

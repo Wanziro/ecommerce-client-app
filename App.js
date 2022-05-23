@@ -1,8 +1,6 @@
 import React from 'react';
 import {LogBox} from 'react-native';
-
 import Navigation from './src/navigation';
-
 import {Provider} from 'react-redux';
 import {store, persistor} from './src/store';
 import {PersistGate} from 'redux-persist/integration/react';

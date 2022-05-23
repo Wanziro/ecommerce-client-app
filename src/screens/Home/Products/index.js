@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, Dimensions, Image, Pressable} from 'react-native';
-import {useSelector} from 'react-redux';
+import {View, Text, Dimensions, Image, Pressable, Button} from 'react-native';
+import {ALERT_TYPE, Dialog, Root, Toast} from 'react-native-alert-notification';
+import {useDispatch, useSelector} from 'react-redux';
 import colors from '../../../constants/colors';
 import PlaceHolder from './Placeholder';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
@@ -8,14 +9,53 @@ import ProductItem from './ProductItem';
 import {imageUrl} from '../../../constants/app';
 import {formatMoney} from '../../../helpers';
 import Modal from 'react-native-modal';
+import {addToCart} from '../../../actions/cart';
 const {height, width} = Dimensions.get('window');
 function Products() {
+  const dispatch = useDispatch();
+  const {cart} = useSelector(state => state.cart);
   const {products, loadingProducts, loadingProductsError} = useSelector(
     state => state.products,
   );
   const [showModal, setShowModal] = useState(false);
   const [previewProduct, setPreviewProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const handleAddToCart = () => {
+    if (previewProduct !== null) {
+      //check for existence
+      let itemExists = false;
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].product.id === previewProduct.id) {
+          itemExists = true;
+          break;
+        }
+      }
+      if (!itemExists) {
+        dispatch(addToCart({product: previewProduct, quantity: quantity}));
+        setShowModal(false);
+        setQuantity(1);
+        Dialog.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: 'Success',
+          textBody: previewProduct.name + ' added to cart!',
+          button: 'close',
+        });
+      } else {
+        setShowModal(false);
+        setQuantity(1);
+        Dialog.show({
+          type: ALERT_TYPE.WARNING,
+          title: 'Warning',
+          textBody: previewProduct.name + ' already exist in the cart',
+          button: 'close',
+          autoClose: true,
+        });
+      }
+    } else {
+      setShowModal(false);
+      setQuantity(1);
+    }
+  };
   return (
     <>
       <View style={{padding: 15}}>
@@ -32,6 +72,8 @@ function Products() {
                     product={item}
                     setShowModal={setShowModal}
                     setPreviewProduct={setPreviewProduct}
+                    handleAddToCart={handleAddToCart}
+                    setQuantity={setQuantity}
                   />
                 ))}
               </>
@@ -187,28 +229,31 @@ function Products() {
                       TOTAL: {formatMoney(previewProduct?.price * quantity)} RWF
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      marginTop: 15,
-                      backgroundColor: colors.APPBAR_HEADER_COLOR,
-                      padding: 15,
-                      borderRadius: 10,
-                    }}>
-                    <Text
+                  <Pressable onPress={() => handleAddToCart()}>
+                    <View
                       style={{
-                        textAlign: 'center',
-                        color: colors.WHITE,
-                        fontSize: 20,
+                        marginTop: 15,
+                        backgroundColor: colors.APPBAR_HEADER_COLOR,
+                        padding: 15,
+                        borderRadius: 10,
                       }}>
-                      Add to cart
-                    </Text>
-                  </View>
+                      <Text
+                        style={{
+                          textAlign: 'center',
+                          color: colors.WHITE,
+                          fontSize: 20,
+                        }}>
+                        Add to cart
+                      </Text>
+                    </View>
+                  </Pressable>
                 </View>
               </View>
             </View>
           </View>
         </View>
       </Modal>
+      <Root theme="dark" />
     </>
   );
 }

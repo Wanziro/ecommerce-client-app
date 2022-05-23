@@ -27,6 +27,7 @@ const TopTab = createMaterialTopTabNavigator();
 
 const HomeTabs = ({navigation}) => {
   const {selectedSupplier} = useSelector(state => state.suppliers);
+  const {cart} = useSelector(state => state.cart);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -75,18 +76,34 @@ const HomeTabs = ({navigation}) => {
           },
         })}
       />
-      <Tab.Screen
-        name="Cart"
-        component={Cart}
-        options={{
-          headerTintColor: colors.APPBAR_HEADER_COLOR,
-          tabBarItemStyle: {marginBottom: 10},
-          tabBarLabelStyle: {fontSize: 14},
-          tabBarIcon: ({focused, color, size}) => {
-            return <Icon name="cart" color={color} size={size} />;
-          },
-        }}
-      />
+      {cart.length > 0 ? (
+        <Tab.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            headerTintColor: colors.APPBAR_HEADER_COLOR,
+            tabBarItemStyle: {marginBottom: 10},
+            tabBarLabelStyle: {fontSize: 14},
+            tabBarIcon: ({focused, color, size}) => {
+              return <Icon name="cart" color={color} size={size} />;
+            },
+            tabBarBadge: cart.length,
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            headerTintColor: colors.APPBAR_HEADER_COLOR,
+            tabBarItemStyle: {marginBottom: 10},
+            tabBarLabelStyle: {fontSize: 14},
+            tabBarIcon: ({focused, color, size}) => {
+              return <Icon name="cart" color={color} size={size} />;
+            },
+          }}
+        />
+      )}
       <Tab.Screen
         name="Orders"
         component={Orders}
