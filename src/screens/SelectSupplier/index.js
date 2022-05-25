@@ -12,6 +12,7 @@ import colors from '../../constants/colors';
 import PlaceHolder from './PlaceHolder';
 import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
+import {resetCart} from '../../actions/cart';
 
 function SelectSupplier({navigation}) {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function SelectSupplier({navigation}) {
                     key={i}
                     onPress={() => {
                       dispatch(setSelectedSupplier(item));
+                      dispatch(resetCart());
                       navigation.replace('HomeTabs1');
                     }}>
                     <View

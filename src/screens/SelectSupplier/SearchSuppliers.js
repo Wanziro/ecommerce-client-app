@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
 import Icon2 from 'react-native-vector-icons/dist/MaterialIcons';
 import {setSelectedSupplier} from '../../actions/suppliers';
+import {resetCart} from '../../actions/cart';
 function SearchSuppliers({navigation}) {
   const dispatch = useDispatch();
   const {suppliers} = useSelector(state => state.suppliers);
@@ -78,6 +79,7 @@ function SearchSuppliers({navigation}) {
                 key={i}
                 onPress={() => {
                   dispatch(setSelectedSupplier(item));
+                  dispatch(resetCart());
                   navigation.replace('HomeTabs1');
                 }}>
                 <View

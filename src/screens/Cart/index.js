@@ -85,6 +85,7 @@ function Cart() {
                             fontSize: 30,
                             color: colors.BLACK,
                             fontWeight: 'bold',
+                            paddingHorizontal: 5,
                             marginLeft: 25,
                           }}>
                           -
@@ -109,6 +110,7 @@ function Cart() {
                           style={{
                             fontSize: 30,
                             color: colors.FOOTER_BODY_TEXT_COLOR,
+                            paddingHorizontal: 5,
                           }}>
                           +
                         </Text>

@@ -100,6 +100,9 @@ const HomeTabs = ({navigation}) => {
           name="Cart"
           component={Cart}
           options={{
+            headerShown: true,
+            headerTitle: 'My cart',
+            headerTitleAlign: 'center',
             headerTintColor: colors.APPBAR_HEADER_COLOR,
             tabBarItemStyle: {marginBottom: 10},
             tabBarLabelStyle: {fontSize: 14},
