@@ -26,7 +26,7 @@ import {
   setCurrentUserStart,
 } from '../../actions/currentUser';
 const {width} = Dimensions.get('window');
-function Login({navigation}) {
+function Register({navigation}) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const emailRef = useRef(null);
@@ -83,7 +83,7 @@ function Login({navigation}) {
           style={{
             backgroundColor: colors.APPBAR_HEADER_COLOR,
             padding: 10,
-            height: 150,
+            height: 50,
             width: '100%',
             borderBottomEndRadius: 80,
             // borderBottomStartRadius: 80,
@@ -99,28 +99,49 @@ function Login({navigation}) {
                 }}>
                 <Image
                   source={require('../../../assets/logo.png')}
-                  style={{width: 150, height: 150}}
+                  style={{width: 100, height: 100}}
                 />
               </View>
             </View>
           </View>
         </View>
-        <View style={{marginTop: 80}}>
-          {/* <Text
-            style={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              color: colors.APPBAR_HEADER_COLOR,
-              textAlign: 'center',
-            }}>
-            Login
-          </Text> */}
-        </View>
         <View style={{width: '90%', marginTop: 40}}>
           <View style={{marginVertical: 10}}>
-            <Text style={{color: colors.FOOTER_BODY_TEXT_COLOR}}>
-              Phone or Email
-            </Text>
+            <Text style={{color: colors.FOOTER_BODY_TEXT_COLOR}}>Names</Text>
+            <TextInput
+              style={{
+                backgroundColor: colors.WHITE,
+                marginTop: 10,
+                borderRadius: 5,
+                padding: 10,
+                borderWidth: 1,
+                borderColor: colors.BORDER_COLOR,
+              }}
+              placeholder="Phone or email address"
+              onChangeText={text => setEmail(text)}
+              ref={emailRef}
+              value={email}
+            />
+          </View>
+          <View style={{marginVertical: 10}}>
+            <Text style={{color: colors.FOOTER_BODY_TEXT_COLOR}}>Phone</Text>
+            <TextInput
+              style={{
+                backgroundColor: colors.WHITE,
+                marginTop: 10,
+                borderRadius: 5,
+                padding: 10,
+                borderWidth: 1,
+                borderColor: colors.BORDER_COLOR,
+              }}
+              placeholder="Phone or email address"
+              onChangeText={text => setEmail(text)}
+              ref={emailRef}
+              value={email}
+            />
+          </View>
+          <View style={{marginVertical: 10}}>
+            <Text style={{color: colors.FOOTER_BODY_TEXT_COLOR}}>Email</Text>
             <TextInput
               style={{
                 backgroundColor: colors.WHITE,
@@ -138,6 +159,25 @@ function Login({navigation}) {
           </View>
           <View style={{marginVertical: 10}}>
             <Text style={{color: colors.FOOTER_BODY_TEXT_COLOR}}>Password</Text>
+            <TextInput
+              style={{
+                backgroundColor: colors.WHITE,
+                marginTop: 10,
+                borderRadius: 5,
+                padding: 10,
+                borderWidth: 1,
+                borderColor: colors.BORDER_COLOR,
+              }}
+              secureTextEntry
+              placeholder="Enter your password"
+              onChangeText={text => setPassword(text)}
+              value={password}
+            />
+          </View>
+          <View style={{marginVertical: 10}}>
+            <Text style={{color: colors.FOOTER_BODY_TEXT_COLOR}}>
+              Confirm password
+            </Text>
             <TextInput
               style={{
                 backgroundColor: colors.WHITE,
@@ -190,15 +230,15 @@ function Login({navigation}) {
                     textAlign: 'center',
                     fontSize: 18,
                   }}>
-                  Login
+                  Register
                 </Text>
               </View>
             </Pressable>
           )}
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <View style={{marginTop: 20}}>
               <Text style={{textAlign: 'center', color: colors.OXFORD_BLUE}}>
-                Don't have account? Register
+                Already have account? Login
               </Text>
             </View>
           </TouchableOpacity>
@@ -208,4 +248,4 @@ function Login({navigation}) {
   );
 }
 
-export default Login;
+export default Register;

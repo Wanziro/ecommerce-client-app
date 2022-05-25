@@ -15,15 +15,15 @@ const cart = (state = initialState, action) => {
       };
     case UPDATE_CART: {
       let index;
-      for (let i = 0; i < cart.length; i++) {
-        if (cart[i].product.id === action.payload.product.id) {
+      for (let i = 0; i < state.cart.length; i++) {
+        if (state.cart[i].product.id == action.payload.product.id) {
           index = i;
           break;
         }
       }
-      if (cart[index]) {
-        const updatedCart = [...cart];
-        updatedCart[index].quntity = action.payload.quantity;
+      if (state.cart[index]) {
+        const updatedCart = [...state.cart];
+        updatedCart[index].quantity = action.payload.quantity;
         return {...state, cart: updatedCart};
       } else {
         return state;

@@ -20,6 +20,8 @@ import SearchSuppliers from '../screens/SelectSupplier/SearchSuppliers';
 import Cart from '../screens/Cart';
 import Orders from '../screens/Orders';
 import Menu from '../screens/Menu';
+import About from '../screens/About';
+import Register from '../screens/Register';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -81,6 +83,9 @@ const HomeTabs = ({navigation}) => {
           name="Cart"
           component={Cart}
           options={{
+            headerShown: true,
+            headerTitle: 'My cart',
+            headerTitleAlign: 'center',
             headerTintColor: colors.APPBAR_HEADER_COLOR,
             tabBarItemStyle: {marginBottom: 10},
             tabBarLabelStyle: {fontSize: 14},
@@ -150,6 +155,26 @@ function index() {
               headerTransparent: true,
               title: '',
               headerShadowVisible: false,
+              headerBackVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{
+              headerTransparent: true,
+              title: '',
+              headerShadowVisible: false,
+              headerBackVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="About"
+            component={About}
+            options={{
+              title: 'About Cyizere App',
+              headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
+              headerTintColor: colors.WHITE,
             }}
           />
           <Stack.Screen

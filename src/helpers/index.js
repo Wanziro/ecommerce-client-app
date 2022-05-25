@@ -21,3 +21,15 @@ export const formatMoney = number => {
     formatCurrency({amount: Number(number), code: 'USD'});
   return valueFormattedWithoutSymbol;
 };
+
+export const calculateCartTotal = cart => {
+  if (cart.length > 0) {
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+      total += cart[i].product.price * cart[i].quantity;
+    }
+    return total;
+  } else {
+    return 0;
+  }
+};
