@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   StatusBar,
@@ -16,54 +16,87 @@ import Axios from 'axios';
 import {backendUrl} from '../../constants/app';
 import {useDispatch} from 'react-redux';
 import {
-  setCurrentUserAddress,
-  setCurrentUserClose,
-  setCurrentUserCompanyName,
-  setCurrentUserEmail,
   setCurrentUserId,
+  setCurrentUserEmail,
   setCurrentUserNames,
   setCurrentUserPhone,
-  setCurrentUserStart,
+  resetCurrentUser,
 } from '../../actions/currentUser';
 const {width} = Dimensions.get('window');
 function Register({navigation}) {
   const dispatch = useDispatch();
+  const [names, setNames] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const emailRef = useRef(null);
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const phoneRef = useRef(null);
+  const validPhoneCode = ['8', '9', '2', '3'];
+
+  useEffect(() => {
+    dispatch(resetCurrentUser());
+  }, []);
   const handleSubmit = () => {
-    setIsSubmitting(true);
-    if (email.trim() === '' || password.trim() === '') {
-      emailRef.current.focus();
-      setIsSubmitting(false);
-    } else {
-      Axios.post(backendUrl + '/login', {email, password})
-        .then(res => {
-          console.log(res.data);
-          if (res.data.type == 'success') {
-            const {id, name, companyName, phone, email, address, start, close} =
-              res.data.user;
-            dispatch(setCurrentUserNames(name));
-            dispatch(setCurrentUserCompanyName(companyName));
-            dispatch(setCurrentUserAddress(address));
-            dispatch(setCurrentUserStart(start));
-            dispatch(setCurrentUserClose(close));
-            dispatch(setCurrentUserPhone(phone));
-            dispatch(setCurrentUserEmail(email));
-            dispatch(setCurrentUserId(id));
-          } else {
-            setPassword('');
-            alert(res.data.msg);
-            setIsSubmitting(false);
-          }
-        })
-        .catch(error => {
-          setIsSubmitting(false);
-          setPassword('');
-          alert(error.message);
-        });
+    if (
+      names.trim() === '' ||
+      email.trim() === '' ||
+      password.trim() === '' ||
+      confirmPassword.trim() === ''
+    ) {
+      alert(
+        'Please all information on this form are required. Kindly provide them carefully.',
+      );
+      return;
     }
+    if (password.length <= 4) {
+      alert('Password must be greater then 4 characters');
+      return;
+    } else if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    //validate phone
+    if (phone.trim() === '') {
+      alert('Please enter your phone number');
+      return;
+    } else if (
+      !validPhoneCode.includes(phone[2]) ||
+      phone[0] !== '0' ||
+      phone[1] !== '7' ||
+      phone.length !== 10
+    ) {
+      alert(
+        'Invalid phone number. please provide a valid MTN or AIRTEL-TIGO phone number.',
+      );
+      return;
+    }
+
+    setIsSubmitting(true);
+    Axios.post(backendUrl + '/register', {name: names, phone, email, password})
+      .then(res => {
+        console.log(res.data);
+        if (res.data.type == 'success') {
+          alert(res.data.msg);
+          const {id, name, phone, email} = res.data.user;
+          dispatch(setCurrentUserId(id));
+          dispatch(setCurrentUserNames(name));
+          dispatch(setCurrentUserEmail(email));
+          dispatch(setCurrentUserPhone(phone));
+          setIsSubmitting(false);
+          navigation.replace('Home');
+        } else {
+          setPassword('');
+          setConfirmPassword('');
+          alert(res.data.msg);
+          setIsSubmitting(false);
+        }
+      })
+      .catch(error => {
+        setIsSubmitting(false);
+        setPassword('');
+        alert(error.message);
+      });
   };
 
   return (
@@ -117,10 +150,9 @@ function Register({navigation}) {
                 borderWidth: 1,
                 borderColor: colors.BORDER_COLOR,
               }}
-              placeholder="Phone or email address"
-              onChangeText={text => setEmail(text)}
-              ref={emailRef}
-              value={email}
+              placeholder="Enter your full names"
+              onChangeText={text => setNames(text)}
+              value={names}
             />
           </View>
           <View style={{marginVertical: 10}}>
@@ -134,10 +166,11 @@ function Register({navigation}) {
                 borderWidth: 1,
                 borderColor: colors.BORDER_COLOR,
               }}
-              placeholder="Phone or email address"
-              onChangeText={text => setEmail(text)}
-              ref={emailRef}
-              value={email}
+              placeholder="Phone Ex: 078........."
+              onChangeText={text => setPhone(text)}
+              keyboardType="number-pad"
+              value={phone}
+              ref={phoneRef}
             />
           </View>
           <View style={{marginVertical: 10}}>
@@ -151,9 +184,8 @@ function Register({navigation}) {
                 borderWidth: 1,
                 borderColor: colors.BORDER_COLOR,
               }}
-              placeholder="Phone or email address"
+              placeholder="Email address"
               onChangeText={text => setEmail(text)}
-              ref={emailRef}
               value={email}
             />
           </View>
@@ -188,9 +220,9 @@ function Register({navigation}) {
                 borderColor: colors.BORDER_COLOR,
               }}
               secureTextEntry
-              placeholder="Enter your password"
-              onChangeText={text => setPassword(text)}
-              value={password}
+              placeholder="Confirm password"
+              onChangeText={text => setConfirmPassword(text)}
+              value={confirmPassword}
             />
           </View>
           {isSubmitting ? (
@@ -212,7 +244,7 @@ function Register({navigation}) {
                   fontSize: 18,
                   marginLeft: 10,
                 }}>
-                Login
+                Registering
               </Text>
             </View>
           ) : (
