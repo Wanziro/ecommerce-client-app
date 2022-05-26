@@ -92,7 +92,8 @@ function Menu({navigation}) {
               }}>
               Address: {currentUser.address}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('UpdateUserInfo')}>
               <View
                 style={{
                   alignItems: 'center',
@@ -113,7 +114,8 @@ function Menu({navigation}) {
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ChangePassword')}>
               <View
                 style={{
                   alignItems: 'center',

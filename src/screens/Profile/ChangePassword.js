@@ -55,7 +55,10 @@ function ChangePassword({navigation}) {
   };
   return (
     <>
-      <StatusBar backgroundColor={colors.WHITE} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={colors.APPBAR_HEADER_COLOR}
+        barStyle="dark-content"
+      />
       <View
         style={{
           flex: 1,

@@ -22,6 +22,8 @@ import Orders from '../screens/Orders';
 import Menu from '../screens/Menu';
 import About from '../screens/About';
 import Register from '../screens/Register';
+import UpdateUserInfo from '../screens/Profile/UpdateUserInfo';
+import ChangePassword from '../screens/Profile/ChangePassword';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -169,6 +171,24 @@ function index() {
               title: '',
               headerShadowVisible: false,
               headerBackVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="UpdateUserInfo"
+            component={UpdateUserInfo}
+            options={{
+              title: 'Update user info',
+              headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
+              headerTintColor: colors.WHITE,
+            }}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePassword}
+            options={{
+              title: 'Change password',
+              headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
+              headerTintColor: colors.WHITE,
             }}
           />
           <Stack.Screen
