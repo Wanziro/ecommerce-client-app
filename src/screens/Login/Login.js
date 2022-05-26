@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   StatusBar,
@@ -15,15 +15,14 @@ import colors from '../../constants/colors';
 import Axios from 'axios';
 import {backendUrl} from '../../constants/app';
 import {useDispatch} from 'react-redux';
+import Toast from 'react-native-toast-message';
 import {
+  resetCurrentUser,
   setCurrentUserAddress,
-  setCurrentUserClose,
-  setCurrentUserCompanyName,
   setCurrentUserEmail,
+  setCurrentUserPhone,
   setCurrentUserId,
   setCurrentUserNames,
-  setCurrentUserPhone,
-  setCurrentUserStart,
 } from '../../actions/currentUser';
 const {width} = Dimensions.get('window');
 function Login({navigation}) {
@@ -38,20 +37,23 @@ function Login({navigation}) {
       emailRef.current.focus();
       setIsSubmitting(false);
     } else {
-      Axios.post(backendUrl + '/login', {email, password})
+      Axios.post(backendUrl + '/login', {emailOrPhone: email, password})
         .then(res => {
           console.log(res.data);
           if (res.data.type == 'success') {
-            const {id, name, companyName, phone, email, address, start, close} =
-              res.data.user;
+            const {id, name, phone, email, address} = res.data.user;
             dispatch(setCurrentUserNames(name));
-            dispatch(setCurrentUserCompanyName(companyName));
             dispatch(setCurrentUserAddress(address));
-            dispatch(setCurrentUserStart(start));
-            dispatch(setCurrentUserClose(close));
             dispatch(setCurrentUserPhone(phone));
             dispatch(setCurrentUserEmail(email));
             dispatch(setCurrentUserId(id));
+            Toast.show({
+              type: 'success',
+              text1: 'Success',
+              text2: 'Logged in successful!',
+              position: 'bottom',
+            });
+            navigation.replace('HomeTabs1');
           } else {
             setPassword('');
             alert(res.data.msg);
@@ -65,7 +67,9 @@ function Login({navigation}) {
         });
     }
   };
-
+  useEffect(() => {
+    dispatch(resetCurrentUser());
+  }, []);
   return (
     <KeyboardAwareScrollView>
       <StatusBar

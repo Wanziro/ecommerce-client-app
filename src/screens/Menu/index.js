@@ -1,13 +1,37 @@
 import React from 'react';
-import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
+import {View, Text, Dimensions, TouchableOpacity, Alert} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/Feather';
+import {resetCurrentUser} from '../../actions/currentUser';
+import {resetCart} from '../../actions/cart';
 const {width, height} = Dimensions.get('window');
 function Menu({navigation}) {
+  const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser);
+  const handleLogout = () => {
+    Alert.alert(
+      'Confirmation',
+      'Do you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'confirm',
+          onPress: () => {
+            dispatch(resetCurrentUser());
+            dispatch(resetCart());
+            navigation.navigate('Login');
+          },
+        },
+      ],
+      {cancelable: true},
+    );
+  };
   return (
     <View style={{flex: 1, backgroundColor: colors.APPBAR_HEADER_COLOR}}>
       <View
@@ -134,25 +158,27 @@ function Menu({navigation}) {
           </View>
         </TouchableOpacity>
         {currentUser.id !== '' ? (
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              marginBottom: 15,
-            }}>
-            <Icon2 name="logout" size={25} color={colors.BLACK} />
-            <Text
+          <TouchableOpacity onPress={() => handleLogout()}>
+            <View
               style={{
-                color: colors.BLACK,
-                fontWeight: 'bold',
-                fontSize: 16,
-                marginLeft: 10,
-                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                marginBottom: 15,
               }}>
-              Logout
-            </Text>
-          </View>
+              <Icon2 name="logout" size={25} color={colors.BLACK} />
+              <Text
+                style={{
+                  color: colors.BLACK,
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                  marginLeft: 10,
+                  flex: 1,
+                }}>
+                Logout
+              </Text>
+            </View>
+          </TouchableOpacity>
         ) : (
           <>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>

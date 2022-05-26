@@ -84,7 +84,7 @@ function Register({navigation}) {
           dispatch(setCurrentUserEmail(email));
           dispatch(setCurrentUserPhone(phone));
           setIsSubmitting(false);
-          navigation.replace('Home');
+          navigation.replace('HomeTabs1');
         } else {
           setPassword('');
           setConfirmPassword('');
