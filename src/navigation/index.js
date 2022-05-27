@@ -24,6 +24,8 @@ import About from '../screens/About';
 import Register from '../screens/Register';
 import UpdateUserInfo from '../screens/Profile/UpdateUserInfo';
 import ChangePassword from '../screens/Profile/ChangePassword';
+import DeliveryLocations from '../screens/DeliveryLocations';
+import GoogleLocationSearch from '../screens/DeliveryLocations/GoogleLocationSearch';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -147,7 +149,7 @@ function index() {
   const {selectedSupplier} = useSelector(state => state.suppliers);
   return (
     <>
-      <StatusBar backgroundColor={colors.WHITE} />
+      <StatusBar backgroundColor={colors.WHITE} barStyle="dark-content" />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={
@@ -187,6 +189,24 @@ function index() {
             component={ChangePassword}
             options={{
               title: 'Change password',
+              headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
+              headerTintColor: colors.WHITE,
+            }}
+          />
+          <Stack.Screen
+            name="DeliveryLocations"
+            component={DeliveryLocations}
+            options={{
+              title: 'Delivery Location',
+              headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
+              headerTintColor: colors.WHITE,
+            }}
+          />
+          <Stack.Screen
+            name="SearchLocation"
+            component={GoogleLocationSearch}
+            options={{
+              title: 'Search for locations',
               headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
               headerTintColor: colors.WHITE,
             }}

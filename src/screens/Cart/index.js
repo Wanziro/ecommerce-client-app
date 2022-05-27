@@ -15,7 +15,7 @@ import {imageUrl} from '../../constants/app';
 import {calculateCartTotal, formatMoney} from '../../helpers';
 import {removeItemFromCart, updateCartItem} from '../../actions/cart';
 const {width, height} = Dimensions.get('window');
-function Cart() {
+function Cart({navigation}) {
   const dispatch = useDispatch();
   const {cart} = useSelector(state => state.cart);
   const handlePlus = item => {
@@ -150,16 +150,19 @@ function Cart() {
             <Text style={{color: colors.BLACK, fontSize: 20}}>
               TOTAL: {formatMoney(calculateCartTotal(cart))} RWF
             </Text>
-            <View
-              style={{
-                backgroundColor: colors.APPBAR_HEADER_COLOR,
-                padding: 10,
-                borderRadius: 5,
-              }}>
-              <Text style={{color: colors.WHITE, fontSize: 18}}>
-                Checkout Now
-              </Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('DeliveryLocations')}>
+              <View
+                style={{
+                  backgroundColor: colors.APPBAR_HEADER_COLOR,
+                  padding: 10,
+                  borderRadius: 5,
+                }}>
+                <Text style={{color: colors.WHITE, fontSize: 18}}>
+                  Checkout Now
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       ) : (
