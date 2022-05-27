@@ -3,9 +3,8 @@ import {View, Text} from 'react-native';
 import {API_KEY} from '@env';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import colors from '../../constants/colors';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-navigator.geolocation = require('@react-native-community/geolocation');
 
+navigator.geolocation = require('@react-native-community/geolocation');
 function GoogleLocationSearch() {
   return (
     <View style={{backgroundColor: colors.BACKGROUND_COLOR, flex: 1}}>

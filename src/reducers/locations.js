@@ -10,6 +10,12 @@ const initialState = {
   locations: [],
 };
 
+// interface for location{
+//   lat:Number;
+//   long:Number;
+//   address: String;
+// }
+
 const locations = (state = initialState, action) => {
   switch (action.type) {
     case ADD_LOCATION:
@@ -17,7 +23,11 @@ const locations = (state = initialState, action) => {
     case REMOVE_LOCATION:
       return {
         ...state,
-        locations: state.locations.filter(item => item.id !== action.payload),
+        locations: state.locations.filter(
+          item =>
+            item.lat !== action.payload.lat &&
+            item.long !== action.payload.long,
+        ),
       };
     case SET_SELECTED_LOCATION:
       return {...state, selectedLocation: action.payload};

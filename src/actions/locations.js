@@ -12,7 +12,7 @@ export const addLocation = location => dispatch => {
 
 export const removeLocation = location => dispatch => {
   dispatch({
-    type: REMOVE_ITEM,
+    type: REMOVE_LOCATION,
     payload: location,
   });
 };
