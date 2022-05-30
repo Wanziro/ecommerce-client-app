@@ -26,6 +26,7 @@ import UpdateUserInfo from '../screens/Profile/UpdateUserInfo';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import DeliveryLocations from '../screens/DeliveryLocations';
 import GoogleLocationSearch from '../screens/DeliveryLocations/GoogleLocationSearch';
+import OrderSummary from '../screens/OrderSummary';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -198,6 +199,15 @@ function index() {
             component={DeliveryLocations}
             options={{
               title: 'Delivery Location',
+              headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
+              headerTintColor: colors.WHITE,
+            }}
+          />
+          <Stack.Screen
+            name="OrderSummary"
+            component={OrderSummary}
+            options={{
+              title: 'Order summary',
               headerStyle: {backgroundColor: colors.APPBAR_HEADER_COLOR},
               headerTintColor: colors.WHITE,
             }}

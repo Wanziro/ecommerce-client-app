@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "972711242579",
+    "project_id": "cyizereclientappnotifications",
+    "storage_bucket": "cyizereclientappnotifications.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972711242579:android:ea2f4a4d6f1a1f52258fa6",
+        "android_client_info": {
+          "package_name": "com.client_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972711242579-l2ebppj4j4fa25e8c82jcdtbv1k5a8qe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmq4bTy0T-EJFt4Dmv1rr73eQzVUlFz54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972711242579-l2ebppj4j4fa25e8c82jcdtbv1k5a8qe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

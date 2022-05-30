@@ -30,7 +30,7 @@ function DeliveryLocations({navigation}) {
   const handleGetCurrentLocation = () => {
     try {
       Geolocation.getCurrentPosition(info => {
-        console.log(info);
+        // console.log(info);
         Geocoder.from(info.coords.latitude, info.coords.longitude)
           .then(json => {
             const addressComponent = json.results[0].formatted_address;
@@ -49,8 +49,15 @@ function DeliveryLocations({navigation}) {
               }),
             );
             setShowModal(false);
+            navigation.navigate('OrderSummary');
           })
-          .catch(error => console.warn(error));
+          .catch(error => {
+            Toast.show({
+              type: ALERT_TYPE.DANGER,
+              title: 'Error',
+              textBody: error.message + '. Try again later.',
+            });
+          });
       });
     } catch (error) {
       Toast.show({
@@ -75,7 +82,12 @@ function DeliveryLocations({navigation}) {
           </Text>
           <ScrollView>
             {locations.map((item, i) => (
-              <TouchableOpacity key={i}>
+              <TouchableOpacity
+                key={i}
+                onPress={() => {
+                  setSelectedLocation(item);
+                  navigation.navigate('OrderSummary');
+                }}>
                 <View
                   style={{
                     marginVertical: 10,
