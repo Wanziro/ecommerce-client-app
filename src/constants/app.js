@@ -1,8 +1,8 @@
 const APP_MODE = 'dev'; //production or dev
 const CONFIG = {
   dev: {
-    backendUrl: 'http://192.168.1.74/RN/cyizere/client',
-    imageUrl: 'http://192.168.1.74/RN/cyizere/supplier/uploads/products/',
+    backendUrl: 'http://192.168.1.69/RN/cyizere/client',
+    imageUrl: 'http://192.168.1.69/RN/cyizere/supplier/uploads/products/',
     // backendUrl: 'http://192.168.1.94/RN/cyizere/supplier',
     // imageUrl:
     //   'http://192.168.1.94/RN/cyizere/supplier/uploads/products/',
